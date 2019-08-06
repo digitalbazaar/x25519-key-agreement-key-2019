@@ -1,3 +1,17 @@
+You may use the x25519-key-pair project under the terms of
+the BSD License.
+
+You are free to use this project in commercial projects as long as the
+copyright header is left intact.
+
+If you are a commercial entity and use this set of libraries in your
+commercial software then reasonable payment to Digital Bazaar, if you can
+afford it, is not required but is expected and would be appreciated. If this
+library saves you time, then it's saving you money. We are attempting to strike
+a balance between helping the development community while not being taken
+advantage of by lucrative commercial entities for our efforts.
+
+-------------------------------------------------------------------------------
 BSD 3-Clause License
 
 Copyright (c) 2019, Digital Bazaar, Inc.
