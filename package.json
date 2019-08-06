@@ -1,0 +1,38 @@
+{
+  "name": "x25519-key-pair",
+  "version": "0.1.0",
+  "description": "An X25519 (Curve25519) DH key implementation to work with the crypto-ld LDKeyPair API",
+  "main": "lib/X25519KeyPair",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalbazaar/x25519-key-pair.git"
+  },
+  "keywords": [
+    "Linked Data",
+    "JSON-LD",
+    "digital signatures",
+    "jsonld-signatures",
+    "jsonld"
+  ],
+  "author": {
+    "name": "Digital Bazaar, Inc.",
+    "email": "support@digitalbazaar.com",
+    "url": "https://digitalbazaar.com/"
+  },
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/digitalbazaar/x25519-key-pair/issues"
+  },
+  "homepage": "https://github.com/digitalbazaar/x25519-key-pair#readme",
+  "dependencies": {
+    "crypto-ld": "digitalbazaar/crypto-ld#master",
+    "ed2curve": "^0.2.1"
+  },
+  "devDependencies": {},
+  "browser": {
+    "crypto": false,
+    "bs58": false,
+    "base64url": false
+  }
+}
