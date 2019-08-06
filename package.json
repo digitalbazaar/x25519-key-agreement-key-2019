@@ -26,8 +26,9 @@
   },
   "homepage": "https://github.com/digitalbazaar/x25519-key-pair#readme",
   "dependencies": {
-    "crypto-ld": "digitalbazaar/crypto-ld#master",
-    "ed2curve": "^0.2.1"
+    "crypto-ld": "^3.6.0",
+    "ed2curve": "^0.2.1",
+    "node-forge": "^0.8.5"
   },
   "devDependencies": {},
   "browser": {
