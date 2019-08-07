@@ -9,6 +9,7 @@ const {expect} = chai;
 
 const {Ed25519KeyPair} = require('crypto-ld');
 const X25519KeyPair = require('../lib/X25519KeyPair');
+const {util: {binary: {base58}}} = require('node-forge');
 
 describe('X25519KeyPair', () => {
   describe('fromEdKeyPair', () => {
@@ -27,6 +28,25 @@ describe('X25519KeyPair', () => {
         .equal('9K6xjwBdjKC4W3r41ZP5WUxp8XXm8gT9GvR1G5Eocs1Z');
       expect(xKeyPair.privateKeyBase58).to
         .equal('H9ruaVs9LnRUwxNMLTjDkEbWW1P3bcBuiu7GxoBbEpdV');
+    });
+  });
+
+  describe('deriveSecret', () => {
+    it('should produce a secret from a remote key', async () => {
+      const localKey = await X25519KeyPair.from({
+        "privateKeyBase58": "B1tfmsThxDBrFx7VdtimC26s1WW1aFySxdR16n5SfDJa",
+        "publicKeyBase58": "FWzRdFAfTJGsdPWFvD1oXy469wAsGptMiFpdecxgcek6"
+      });
+
+      const remoteKey = await X25519KeyPair.from({
+        "publicKeyBase58": "73e843su1epHouuHyDzjy2YXZfZrNiXLrr1hjpJkBeUG"
+      });
+
+      const secret = localKey.deriveSecret({remoteKey});
+      const secretString = base58.encode(secret);
+
+      expect(secretString).to
+        .equal('3orgcVQPH25E7ybPDz7eEnawCFTtjuYEu3nXQNPbQ1Sv');
     });
   });
 });
