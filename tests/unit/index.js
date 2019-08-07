@@ -8,7 +8,7 @@ chai.should();
 const {expect} = chai;
 
 const {Ed25519KeyPair} = require('crypto-ld');
-const X25519KeyPair = require('../lib/X25519KeyPair');
+const {X25519KeyPair} = require('../../');
 const {util: {binary: {base58}}} = require('node-forge');
 
 describe('X25519KeyPair', () => {
