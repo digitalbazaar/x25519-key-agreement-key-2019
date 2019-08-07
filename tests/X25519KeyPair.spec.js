@@ -49,4 +49,21 @@ describe('X25519KeyPair', () => {
         .equal('3orgcVQPH25E7ybPDz7eEnawCFTtjuYEu3nXQNPbQ1Sv');
     });
   });
+
+  describe('fingerprint', async () => {
+    const key = await X25519KeyPair.generate();
+    const fingerprint = key.fingerprint();
+
+    it('should round trip convert to and from public key', async () => {
+      const newKey = X25519KeyPair.fromFingerprint({fingerprint});
+
+      expect(key.publicKeyBase58).to.equal(newKey.publicKeyBase58);
+    });
+
+    it('should verify via verifyFingerprint()', () => {
+      const result = key.verifyFingerprint(fingerprint);
+      expect(result.valid).to.be.true;
+      expect(result.error).to.not.exist;
+    })
+  });
 });
