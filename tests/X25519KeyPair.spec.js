@@ -42,7 +42,7 @@ describe('X25519KeyPair', () => {
         "publicKeyBase58": "73e843su1epHouuHyDzjy2YXZfZrNiXLrr1hjpJkBeUG"
       });
 
-      const secret = localKey.deriveSecret({remoteKey});
+      const secret = localKey.deriveSecret({publicKey: remoteKey});
       const secretString = base58.encode(secret);
 
       expect(secretString).to
@@ -50,17 +50,19 @@ describe('X25519KeyPair', () => {
     });
   });
 
-  describe('fingerprint', async () => {
-    const key = await X25519KeyPair.generate();
-    const fingerprint = key.fingerprint();
-
+  describe('fingerprint', () => {
     it('should round trip convert to and from public key', async () => {
+      const key = await X25519KeyPair.generate();
+      const fingerprint = key.fingerprint();
       const newKey = X25519KeyPair.fromFingerprint({fingerprint});
 
       expect(key.publicKeyBase58).to.equal(newKey.publicKeyBase58);
     });
 
-    it('should verify via verifyFingerprint()', () => {
+    it('should verify via verifyFingerprint()', async () => {
+      const key = await X25519KeyPair.generate();
+      const fingerprint = key.fingerprint();
+
       const result = key.verifyFingerprint(fingerprint);
       expect(result.valid).to.be.true;
       expect(result.error).to.not.exist;
