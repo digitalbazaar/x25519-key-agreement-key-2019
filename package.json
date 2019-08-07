@@ -33,7 +33,8 @@
   "dependencies": {
     "crypto-ld": "^3.6.0",
     "ed2curve": "^0.2.1",
-    "node-forge": "^0.8.5"
+    "node-forge": "^0.8.5",
+    "tweetnacl": "^1.0.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
