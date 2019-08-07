@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "description": "An X25519 (Curve25519) DH key implementation to work with the crypto-ld LDKeyPair API",
   "main": "lib/X25519KeyPair",
-  "scripts": {},
+  "scripts": {
+    "mocha": "mocha ./tests/**/*.spec.js ./tests/*.spec.js",
+    "test": "npm run mocha",
+    "preversion": "npm test",
+    "postversion": "git push --follow-tags"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/digitalbazaar/x25519-key-pair.git"
@@ -30,7 +35,10 @@
     "ed2curve": "^0.2.1",
     "node-forge": "^0.8.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  },
   "browser": {
     "crypto": false,
     "bs58": false,
