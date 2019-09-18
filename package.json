@@ -7,7 +7,8 @@
     "mocha": "mocha ./tests/**/*.spec.js ./tests/*.spec.js",
     "test": "npm run mocha",
     "preversion": "npm test",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags",
+    "lint": "eslint 'lib/**.js' 'tests/**.js'"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,8 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-digitalbazaar": "^2.0.1",
     "mocha": "^6.1.4"
   },
   "browser": {
