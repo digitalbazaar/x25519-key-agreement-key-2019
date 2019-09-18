@@ -38,7 +38,11 @@ npm install
 
 ## Usage
 
-TBD
+Importing:
+
+```
+const {X25519KeyPair} = require('x25519-key-pair');
+```
 
 ## Contribute
 
