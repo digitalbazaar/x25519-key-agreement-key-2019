@@ -1,0 +1,51 @@
+{
+  "name": "x25519-key-pair",
+  "version": "0.1.0",
+  "description": "An X25519 (Curve25519) DH key implementation to work with the crypto-ld LDKeyPair API",
+  "main": "lib/X25519KeyPair",
+  "scripts": {
+    "mocha": "mocha ./tests/**/*.spec.js ./tests/*.spec.js",
+    "test": "npm run mocha",
+    "preversion": "npm test",
+    "postversion": "git push --follow-tags",
+    "lint": "eslint 'lib/**.js' 'tests/**.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalbazaar/x25519-key-pair.git"
+  },
+  "keywords": [
+    "Linked Data",
+    "JSON-LD",
+    "digital signatures",
+    "jsonld-signatures",
+    "jsonld"
+  ],
+  "author": {
+    "name": "Digital Bazaar, Inc.",
+    "email": "support@digitalbazaar.com",
+    "url": "https://digitalbazaar.com/"
+  },
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/digitalbazaar/x25519-key-pair/issues"
+  },
+  "homepage": "https://github.com/digitalbazaar/x25519-key-pair#readme",
+  "dependencies": {
+    "crypto-ld": "^3.6.0",
+    "ed2curve": "^0.2.1",
+    "node-forge": "^0.8.5",
+    "tweetnacl": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-digitalbazaar": "^2.0.1",
+    "mocha": "^6.1.4"
+  },
+  "browser": {
+    "crypto": false,
+    "bs58": false,
+    "base64url": false
+  }
+}
