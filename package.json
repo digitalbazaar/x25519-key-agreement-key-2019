@@ -1,6 +1,6 @@
 {
   "name": "x25519-key-pair",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An X25519 (Curve25519) DH key implementation to work with the crypto-ld LDKeyPair API",
   "main": "index.js",
   "scripts": {
