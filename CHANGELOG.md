@@ -1,6 +1,6 @@
 # x25519-key-pair ChangeLog
 
-## 2.0.0 - TBD
+## 2.0.0 - 2020-03-09
 
 ### Changed
 - **BREAKING**: Changed the key fingerprint prefix to the recently registered
