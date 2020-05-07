@@ -26,6 +26,17 @@ describe('X25519KeyPair', () => {
       expect(keyPair.id).to.equal(
         'did:example:1234#z6LSjeJZaUHMvEKW7tEJXV4PrSm61NzxxHhDXF6zHnVtDu9g');
     });
+
+    it('should error if publicKeyBase58 property is missing', async () => {
+      let error;
+      try {
+        new X25519KeyPair({});
+      } catch(e) {
+        error = e;
+      }
+      expect(error.message)
+        .to.equal('The "publicKeyBase58" property is required.');
+    });
   });
 
   describe('fromEdKeyPair', () => {
