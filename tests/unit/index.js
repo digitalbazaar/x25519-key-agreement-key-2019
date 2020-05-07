@@ -11,7 +11,23 @@ const {Ed25519KeyPair} = require('crypto-ld');
 const {X25519KeyPair} = require('../../');
 const {util: {binary: {base58}}} = require('node-forge');
 
+const mockKey = {
+  publicKeyBase58: '8y8Q4AUVpmbm2VrXzqYSXrYcAETrFgX4eGPJoKrMWXNv',
+  privateKeyBase58: '95tmYuhqSuJqY77FEg78Zy3LFQ1cENxGv2wMvayk7Lqf'
+};
+
 describe('X25519KeyPair', () => {
+  describe('constructor', () => {
+    it('should auto-set key.id based on controller, if present', async () => {
+      const {publicKeyBase58} = mockKey;
+      const controller = 'did:example:1234';
+
+      const keyPair = new X25519KeyPair({controller, publicKeyBase58});
+      expect(keyPair.id).to.equal(
+        'did:example:1234#z6LSjeJZaUHMvEKW7tEJXV4PrSm61NzxxHhDXF6zHnVtDu9g');
+    });
+  });
+
   describe('fromEdKeyPair', () => {
     it('should convert both public and private key', async () => {
       const edKeyPair = await Ed25519KeyPair.from({
