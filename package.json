@@ -39,6 +39,7 @@
   "homepage": "https://github.com/digitalbazaar/x25519-key-pair#readme",
   "dependencies": {
     "crypto-ld": "^3.6.0",
+    "ed25519-to-x25519.wasm": "^0.2.0",
     "ed2curve": "^0.2.1",
     "esm": "^3.2.22",
     "node-forge": "^0.8.5",
