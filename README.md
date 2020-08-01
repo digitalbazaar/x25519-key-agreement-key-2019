@@ -1,4 +1,4 @@
-# X25519KeyPair _(x25519-key-agreement-key-2019)_
+# X25519KeyAgreementKey2019 _(x25519-key-agreement-key-2019)_
 
 > An X25519 (Curve25519) DH key implementation to work with the crypto-ld LDKeyPair API
 
@@ -46,16 +46,16 @@ npm install
 Importing:
 
 ```
-const {X25519KeyPair} = require('@digitalbazaar/x25519-key-agreement-key-2019');
+const {X25519KeyAgreementKey2019} = require('@digitalbazaar/x25519-key-agreement-key-2019');
 
 // Or, if you're testing code in the interactive Node CLI, right in this repo:
-const {X25519KeyPair} = require('./');
+const {X25519KeyAgreementKey2019} = require('./');
 ```
 
 Generating:
 
 ```js
-const keyPair = await X25519KeyPair.generate({
+const keyPair = await X25519KeyAgreementKey2019.generate({
   controller: 'did:example:1234'
 });
 // Don't forget to set your key's id. For example, DID + fingerprint
@@ -94,7 +94,7 @@ Deserializing:
 
 ```js
 // Loading public key only
-const keyPair = await X25519KeyPair.from({
+const keyPair = await X25519KeyAgreementKey2019.from({
   id: 'did:example:1234#z6LSjeJZaUHMvEKW7tEJXV4PrSm61NzxxHhDXF6zHnVtDu9g',
   type: 'X25519KeyAgreementKey2019',
   controller: 'did:example:1234',

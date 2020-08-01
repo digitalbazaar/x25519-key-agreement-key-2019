@@ -2,22 +2,18 @@
   "name": "@digitalbazaar/x25519-key-agreement-key-2019",
   "version": "3.1.1-0",
   "description": "An X25519 (Curve25519) DH key implementation to work with the crypto-ld LDKeyPair API",
-  "main": "index.js",
   "scripts": {
-    "test": "cd tests && npm run test-node",
-    "test-node": "cd tests && npm run test-node",
-    "test-karma": "cd tests && karma start karma.conf.js",
-    "preversion": "npm test",
-    "postversion": "git push --follow-tags",
+    "test": "npm run lint && npm run test-node && npm run test-karma",
+    "test-node": "cross-env NODE_ENV=test mocha -r esm --preserve-symlinks -t 10000 tests/**/*.spec.js",
+    "test-karma": "karma start tests/karma.conf.js",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text-summary npm run test-node",
     "coverage-ci": "cross-env NODE_ENV=test nyc --reporter=lcovonly npm run test-node",
     "coverage-report": "nyc report",
     "lint": "eslint ."
   },
+  "main": "src/main.js",
   "files": [
-    "index.js",
-    "lib/X25519KeyPair.js",
-    "main.js"
+    "src/*.js"
   ],
   "repository": {
     "type": "git",
@@ -79,5 +75,5 @@
     "bs58": false,
     "base64url": false
   },
-  "module": "main.js"
+  "module": "src/main.js"
 }

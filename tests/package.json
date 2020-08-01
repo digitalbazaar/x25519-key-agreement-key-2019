@@ -4,7 +4,7 @@
   "description": "Unit Tests in Mocha and Karma",
   "main": "index.js",
   "scripts": {
-    "test-node": "cross-env NODE_ENV=test mocha -t 30000 -R ${REPORTER:-spec} unit/index.js",
+    "test-node": "cross-env NODE_ENV=test mocha -t 30000 -R ${REPORTER:-spec} unit/X25519KeyAgreementKey2019.spec.js",
     "test-karma": "karma start"
   },
   "keywords": [
