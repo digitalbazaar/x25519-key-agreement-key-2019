@@ -50,7 +50,8 @@ describe('X25519KeyAgreementKey2019', () => {
         publicKeyBase58: 'HLi1h9SzENZyEv7ifPNtu8xyJNzCFFeaC6X9rsZKFgv3'
       });
 
-      const xKeyPair = X25519KeyAgreementKey2019.fromEdKeyPair(edKeyPair);
+      const xKeyPair = X25519KeyAgreementKey2019
+        .fromEdKeyPair({keyPair: edKeyPair});
 
       expect(xKeyPair.type).to.equal('X25519KeyAgreementKey2019');
       expect(xKeyPair.controller).to.equal('did:example:123');
