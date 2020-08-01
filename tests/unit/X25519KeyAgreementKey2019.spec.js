@@ -8,7 +8,7 @@ chai.should();
 const {expect} = chai;
 
 const {Ed25519KeyPair} = require('crypto-ld');
-const {X25519KeyPair} = require('../../');
+const {X25519KeyAgreementKey2019} = require('../../');
 const {util: {binary: {base58}}} = require('node-forge');
 
 const mockKey = {
@@ -16,13 +16,13 @@ const mockKey = {
   privateKeyBase58: '95tmYuhqSuJqY77FEg78Zy3LFQ1cENxGv2wMvayk7Lqf'
 };
 
-describe('X25519KeyPair', () => {
+describe('X25519KeyAgreementKey2019', () => {
   describe('constructor', () => {
     it('should auto-set key.id based on controller, if present', async () => {
       const {publicKeyBase58} = mockKey;
       const controller = 'did:example:1234';
 
-      const keyPair = new X25519KeyPair({controller, publicKeyBase58});
+      const keyPair = new X25519KeyAgreementKey2019({controller, publicKeyBase58});
       expect(keyPair.id).to.equal(
         'did:example:1234#z6LSjeJZaUHMvEKW7tEJXV4PrSm61NzxxHhDXF6zHnVtDu9g');
     });
@@ -30,7 +30,7 @@ describe('X25519KeyPair', () => {
     it('should error if publicKeyBase58 property is missing', async () => {
       let error;
       try {
-        new X25519KeyPair({});
+        new X25519KeyAgreementKey2019({});
       } catch(e) {
         error = e;
       }
@@ -48,7 +48,7 @@ describe('X25519KeyPair', () => {
         publicKeyBase58: 'HLi1h9SzENZyEv7ifPNtu8xyJNzCFFeaC6X9rsZKFgv3'
       });
 
-      const xKeyPair = X25519KeyPair.fromEdKeyPair(edKeyPair);
+      const xKeyPair = X25519KeyAgreementKey2019.fromEdKeyPair(edKeyPair);
 
       expect(xKeyPair.type).to.equal('X25519KeyAgreementKey2019');
       expect(xKeyPair.controller).to.equal('did:example:123');
@@ -61,12 +61,12 @@ describe('X25519KeyPair', () => {
 
   describe('deriveSecret', () => {
     it('should produce a secret from a remote key', async () => {
-      const localKey = await X25519KeyPair.from({
+      const localKey = await X25519KeyAgreementKey2019.from({
         privateKeyBase58: 'B1tfmsThxDBrFx7VdtimC26s1WW1aFySxdR16n5SfDJa',
         publicKeyBase58: 'FWzRdFAfTJGsdPWFvD1oXy469wAsGptMiFpdecxgcek6'
       });
 
-      const remoteKey = await X25519KeyPair.from({
+      const remoteKey = await X25519KeyAgreementKey2019.from({
         publicKeyBase58: '73e843su1epHouuHyDzjy2YXZfZrNiXLrr1hjpJkBeUG'
       });
 
@@ -80,15 +80,15 @@ describe('X25519KeyPair', () => {
 
   describe('fingerprint', () => {
     it('should round trip convert to and from public key', async () => {
-      const key = await X25519KeyPair.generate();
+      const key = await X25519KeyAgreementKey2019.generate();
       const fingerprint = key.fingerprint();
-      const newKey = X25519KeyPair.fromFingerprint({fingerprint});
+      const newKey = X25519KeyAgreementKey2019.fromFingerprint({fingerprint});
 
       expect(key.publicKeyBase58).to.equal(newKey.publicKeyBase58);
     });
 
     it('should verify via verifyFingerprint()', async () => {
-      const key = await X25519KeyPair.generate();
+      const key = await X25519KeyAgreementKey2019.generate();
       const fingerprint = key.fingerprint();
 
       const result = key.verifyFingerprint(fingerprint);

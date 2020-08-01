@@ -10,7 +10,7 @@ import {base58Decode} from 'crypto-ld/lib/util';
 import ed2curve from 'ed2curve';
 import nacl from 'tweetnacl';
 
-export class X25519KeyPair extends LDKeyPair {
+export class X25519KeyAgreementKey2019 extends LDKeyPair {
   /**
    * An implementation of x25519
    * [X25519 Key Agreement 2019]{@link https://w3c-dvcg.github.io/}
@@ -22,9 +22,9 @@ export class X25519KeyPair extends LDKeyPair {
    *   publicKeyBase58: '...',
    *   privateKeyBase58
    * };
-   * > const DHKey = new X25519KeyPair(options);
+   * > const DHKey = new X25519KeyAgreementKey2019(options);
    * > DHKey
-   * X25519KeyPair { ...
+   * X25519KeyAgreementKey2019 { ...
    * @param {KeyPairOptions} options - Base58 keys plus other options
    * @param {string} options.controller
    * @param {string} options.id
@@ -69,20 +69,20 @@ export class X25519KeyPair extends LDKeyPair {
    * Note: This is async only to match the async signature of other LDKeyPair
    * subclasses.
    * @example
-   * > const keyPair = await X25519KeyPair.generate();
+   * > const keyPair = await X25519KeyAgreementKey2019.generate();
    * > keyPair
-   * X25519KeyPair { ...
+   * X25519KeyAgreementKey2019 { ...
    * @param {KeyPairOptions} [options={}]
    * @param {string} [options.controller]
    * @param {string} [options.id]
    *
-   * @returns {Promise<X25519KeyPair>} Generates a key pair.
+   * @returns {Promise<X25519KeyAgreementKey2019>} Generates a key pair.
    */
   static async generate(options = {}) {
     // Each is a Uint8Array with 32-byte key
     const {publicKey, secretKey: privateKey} = nacl.box.keyPair();
 
-    return new X25519KeyPair({
+    return new X25519KeyAgreementKey2019({
       publicKeyBase58: base58.encode(publicKey),
       privateKeyBase58: base58.encode(privateKey),
       ...options
@@ -90,8 +90,8 @@ export class X25519KeyPair extends LDKeyPair {
   }
 
   /**
-   * Creates an X25519KeyPair Key Pair from an existing key (constructor
-   * method).
+   * Creates an X25519KeyAgreementKey2019 Key Pair from an existing key
+   * (constructor method).
    * @example
    * > const options = {
    *   id,
@@ -99,27 +99,27 @@ export class X25519KeyPair extends LDKeyPair {
    *   publicKeyBase58,
    *   privateKeyBase58: privateKey
    * };
-   * > const key = await X25519KeyPair.from(options);
+   * > const key = await X25519KeyAgreementKey2019.from(options);
    * > key
-   * X25519KeyPair { ...
+   * X25519KeyAgreementKey2019 { ...
    * @param {Object} options
    * @param {string} [options.privateKeyBase58] - A Base58 encoded Private key
    *
-   * @returns {X25519KeyPair} An X25519 Key Pair.
+   * @returns {X25519KeyAgreementKey2019} An X25519 Key Pair.
    */
   static async from(options) {
-    return new X25519KeyPair(options);
+    return new X25519KeyAgreementKey2019(options);
   }
 
   static fromEdKeyPair(edKeyPair) {
-    const xKey = new X25519KeyPair({
+    const xKey = new X25519KeyAgreementKey2019({
       controller: edKeyPair.controller,
-      publicKeyBase58: X25519KeyPair
+      publicKeyBase58: X25519KeyAgreementKey2019
         .convertFromEdPublicKey(edKeyPair.publicKeyBase58)
     });
 
     if(edKeyPair.privateKeyBase58) {
-      xKey.privateKeyBase58 = X25519KeyPair
+      xKey.privateKeyBase58 = X25519KeyAgreementKey2019
         .convertFromEdPrivateKey(edKeyPair.privateKeyBase58);
     }
 
@@ -253,10 +253,10 @@ export class X25519KeyPair extends LDKeyPair {
   }
 
   /**
-   * Creates an instance of X25519KeyPair from a key fingerprint.
+   * Creates an instance of X25519KeyAgreementKey2019 from a key fingerprint.
    *
    * @param {string} fingerprint
-   * @returns {X25519KeyPair}
+   * @returns {X25519KeyAgreementKey2019}
    * @throws Unsupported Fingerprint Type.
    */
   static fromFingerprint({fingerprint}) {
@@ -268,7 +268,7 @@ export class X25519KeyPair extends LDKeyPair {
       throw new Error(`Unsupported Fingerprint Type: ${fingerprint}`);
     }
 
-    return new X25519KeyPair({
+    return new X25519KeyAgreementKey2019({
       publicKeyBase58: base58.encode(buffer.slice(2))
     });
   }
@@ -307,7 +307,8 @@ export class X25519KeyPair extends LDKeyPair {
    */
   fingerprint() {
     const {publicKeyBase58} = this;
-    return X25519KeyPair.fingerprintFromPublicKey({publicKeyBase58});
+    return X25519KeyAgreementKey2019
+      .fingerprintFromPublicKey({publicKeyBase58});
   }
 
   /**

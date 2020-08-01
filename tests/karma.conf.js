@@ -2,7 +2,7 @@ module.exports = function(config) {
   // bundler to test: webpack, browserify
   const bundler = process.env.BUNDLER || 'webpack';
   const frameworks = ['mocha'];
-  const files = ['unit/index.js'];
+  const files = ['unit/*.js'];
   const reporters = ['mocha'];
   const browsers = ['ChromeHeadless'];
   const client = {
