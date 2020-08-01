@@ -5,6 +5,10 @@
 ### Changed
 - **BREAKING**: Rename repo and NPM package name to 
   `@digitalbazaar/x25519-key-agreement-key-2019`.
+- **BREAKING**: Rename `addEncodedPublicKey()` to `addPublicKey()`.
+- **BREAKING**: Rename `addEncryptedPrivateKey()` to `addPrivateKey()`.
+- **BREAKING**: Changed `verifyFingerprint()` param signature to use named 
+  params.
 - See also [`crypto-ld` v4.0 Changelog](https://github.com/digitalbazaar/crypto-ld/blob/master/CHANGELOG.md#400---2020-08-01)
 
 ### Purpose and Upgrade Instructions

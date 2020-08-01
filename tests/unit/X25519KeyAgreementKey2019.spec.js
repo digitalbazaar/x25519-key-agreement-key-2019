@@ -7,9 +7,11 @@ const chai = require('chai');
 chai.should();
 const {expect} = chai;
 
-const {Ed25519KeyPair} = require('crypto-ld');
+import {
+  Ed25519VerificationKey2018
+} from '@digitalbazaar/ed25519-verification-key-2018';
 const {X25519KeyAgreementKey2019} = require('../../');
-const {util: {binary: {base58}}} = require('node-forge');
+import {encode} from 'base58-universal';
 
 const mockKey = {
   publicKeyBase58: '8y8Q4AUVpmbm2VrXzqYSXrYcAETrFgX4eGPJoKrMWXNv',
@@ -41,7 +43,7 @@ describe('X25519KeyAgreementKey2019', () => {
 
   describe('fromEdKeyPair', () => {
     it('should convert both public and private key', async () => {
-      const edKeyPair = await Ed25519KeyPair.from({
+      const edKeyPair = await Ed25519VerificationKey2018.from({
         controller: 'did:example:123',
         /* eslint-disable-next-line max-len */
         privateKeyBase58: '4F71TAGqQYe7KE9p4HUzoVV9arQwKP4gPtvi89EPNGuwA1qLE4RRxitA2rEcdEszERj3pN1DWKARBZQ2BACLbW1V',
@@ -71,7 +73,7 @@ describe('X25519KeyAgreementKey2019', () => {
       });
 
       const secret = localKey.deriveSecret({publicKey: remoteKey});
-      const secretString = base58.encode(secret);
+      const secretString = encode(secret);
 
       expect(secretString).to
         .equal('3orgcVQPH25E7ybPDz7eEnawCFTtjuYEu3nXQNPbQ1Sv');
@@ -91,7 +93,7 @@ describe('X25519KeyAgreementKey2019', () => {
       const key = await X25519KeyAgreementKey2019.generate();
       const fingerprint = key.fingerprint();
 
-      const result = key.verifyFingerprint(fingerprint);
+      const result = key.verifyFingerprint({fingerprint});
       expect(result.valid).to.be.true;
       expect(result.error).to.not.exist;
     });

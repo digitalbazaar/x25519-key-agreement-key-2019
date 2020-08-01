@@ -1,5 +1,5 @@
 module.exports = function(config) {
-  // bundler to test: webpack, browserify
+  // bundler to test: webpack
   const bundler = process.env.BUNDLER || 'webpack';
   const frameworks = ['mocha'];
   const files = ['unit/*.js'];
