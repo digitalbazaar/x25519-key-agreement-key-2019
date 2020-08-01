@@ -95,12 +95,12 @@ export class X25519KeyAgreementKey2019 extends LDVerifierKeyPair {
     const xKey = new X25519KeyAgreementKey2019({
       controller: keyPair.controller,
       publicKeyBase58: X25519KeyAgreementKey2019
-        .convertFromEdPublicKey(keyPair.publicKeyBase58)
+        .convertFromEdPublicKey(keyPair)
     });
 
     if(keyPair.privateKeyBase58) {
       xKey.privateKeyBase58 = X25519KeyAgreementKey2019
-        .convertFromEdPrivateKey(keyPair.privateKeyBase58);
+        .convertFromEdPrivateKey(keyPair);
     }
 
     return xKey;
@@ -126,12 +126,12 @@ export class X25519KeyAgreementKey2019 extends LDVerifierKeyPair {
   }
 
   /**
-   * @param {string} publicKeyBase58 - base58 encoded Ed25519 Private key
+   * @param {string} privateKeyBase58 - base58 encoded Ed25519 Private key
    *
    * @returns {string} base58 encoded X25519 Private key.
    */
-  static convertFromEdPrivateKey({publicKeyBase58}) {
-    const edPrivkeyBytes = decode(publicKeyBase58);
+  static convertFromEdPrivateKey({privateKeyBase58}) {
+    const edPrivkeyBytes = decode(privateKeyBase58);
     // Converts a 64-byte Ed25519 secret key (or just the first 32-byte part of
     // it, which is the secret value) into a 32-byte Curve25519 secret key
     const dhPrivkeyBytes = ed2curve.convertSecretKey(edPrivkeyBytes);
@@ -293,3 +293,5 @@ export class X25519KeyAgreementKey2019 extends LDVerifierKeyPair {
     return {valid};
   }
 }
+
+X25519KeyAgreementKey2019.suite = SUITE_ID;

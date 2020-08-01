@@ -19,6 +19,13 @@ const mockKey = {
 };
 
 describe('X25519KeyAgreementKey2019', () => {
+  describe('class vars', () => {
+    it('should expose suite id for crypto-ld usage', async () => {
+      expect(X25519KeyAgreementKey2019.suite)
+        .to.equal('X25519KeyAgreementKey2019');
+    });
+  });
+
   describe('constructor', () => {
     it('should auto-set key.id based on controller, if present', async () => {
       const {publicKeyBase58} = mockKey;
