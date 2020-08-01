@@ -1,6 +1,6 @@
 # x25519-key-pair ChangeLog
 
-## 3.0.0 - TBD
+## 3.0.0 - 2020-08-01
 
 ### Added
 - Auto-initialize key.id based on controller (if it's present).
