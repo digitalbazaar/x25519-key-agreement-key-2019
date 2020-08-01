@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2019 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2019-2020 Digital Bazaar, Inc. All rights reserved.
  */
 'use strict';
 
@@ -82,7 +82,7 @@ export class X25519KeyAgreementKey2019 extends LDVerifierKeyPair {
    * > const key = await X25519KeyAgreementKey2019.from(options);
    * > key
    * X25519KeyAgreementKey2019 { ...
-   * @param {Object} options
+   * @param {object} options
    * @param {string} [options.privateKeyBase58] - A Base58 encoded Private key
    *
    * @returns {X25519KeyAgreementKey2019} An X25519 Key Pair.
@@ -91,28 +91,28 @@ export class X25519KeyAgreementKey2019 extends LDVerifierKeyPair {
     return new X25519KeyAgreementKey2019(options);
   }
 
-  static fromEdKeyPair(edKeyPair) {
+  static fromEdKeyPair({keyPair}) {
     const xKey = new X25519KeyAgreementKey2019({
-      controller: edKeyPair.controller,
+      controller: keyPair.controller,
       publicKeyBase58: X25519KeyAgreementKey2019
-        .convertFromEdPublicKey(edKeyPair.publicKeyBase58)
+        .convertFromEdPublicKey(keyPair.publicKeyBase58)
     });
 
-    if(edKeyPair.privateKeyBase58) {
+    if(keyPair.privateKeyBase58) {
       xKey.privateKeyBase58 = X25519KeyAgreementKey2019
-        .convertFromEdPrivateKey(edKeyPair.privateKeyBase58);
+        .convertFromEdPrivateKey(keyPair.privateKeyBase58);
     }
 
     return xKey;
   }
 
   /**
-   * @param {string} edPublicKeyBase58 - base58 encoded Ed25519 Public key
+   * @param {string} publicKeyBase58 - base58 encoded Ed25519 Public key
    *
    * @returns {string} base58 encoded X25519 Public key.
    */
-  static convertFromEdPublicKey(edPublicKeyBase58) {
-    const edPubkeyBytes = decode(edPublicKeyBase58);
+  static convertFromEdPublicKey({publicKeyBase58}) {
+    const edPubkeyBytes = decode(publicKeyBase58);
 
     // Converts a 32-byte Ed25519 public key into a 32-byte Curve25519 key
     // Returns null if the given public key in not a valid Ed25519 public key.
@@ -126,12 +126,12 @@ export class X25519KeyAgreementKey2019 extends LDVerifierKeyPair {
   }
 
   /**
-   * @param {string} edPrivateKeyBase58 - base58 encoded Ed25519 Private key
+   * @param {string} publicKeyBase58 - base58 encoded Ed25519 Private key
    *
    * @returns {string} base58 encoded X25519 Private key.
    */
-  static convertFromEdPrivateKey(edPrivateKeyBase58) {
-    const edPrivkeyBytes = decode(edPrivateKeyBase58);
+  static convertFromEdPrivateKey({publicKeyBase58}) {
+    const edPrivkeyBytes = decode(publicKeyBase58);
     // Converts a 64-byte Ed25519 secret key (or just the first 32-byte part of
     // it, which is the secret value) into a 32-byte Curve25519 secret key
     const dhPrivkeyBytes = ed2curve.convertSecretKey(edPrivkeyBytes);
@@ -257,7 +257,7 @@ export class X25519KeyAgreementKey2019 extends LDVerifierKeyPair {
    * {valid: true};
    * @param {string} fingerprint - A Base58 public key.
    *
-   * @returns {Object} An object indicating valid is true or false.
+   * @returns {object} An object indicating valid is true or false.
    */
   verifyFingerprint({fingerprint} = {}) {
     // fingerprint should have `z` prefix indicating
