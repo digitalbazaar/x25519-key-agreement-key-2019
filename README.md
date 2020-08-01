@@ -58,14 +58,12 @@ Generating:
 const keyPair = await X25519KeyAgreementKey2019.generate({
   controller: 'did:example:1234'
 });
-// Don't forget to set your key's id. For example, DID + fingerprint
-keyPair.id = 'did:example:1234#' + keyPair.fingerprint();
 ```
 
 Serializing just the public key:
 
 ```js
-keyPair.publicNode();
+keyPair.export({publicKey: true});
 // ->
 {
   id: 'did:example:1234#z6LSbh9HiAU2zzBdFMdKZGHfg1UjvAYF8C8kYnkfGKuCxYEB',
@@ -79,7 +77,7 @@ Serializing both the private and public key:
 
 ```js
 // a different key pair than the previous example
-await keyPair.export()
+await keyPair.export({publicKey: true, privateKey: true})
 // ->
  {
   id: 'did:example:1234#z6LSjeJZaUHMvEKW7tEJXV4PrSm61NzxxHhDXF6zHnVtDu9g',

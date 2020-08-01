@@ -9,6 +9,11 @@
 - **BREAKING**: Rename `addEncryptedPrivateKey()` to `addPrivateKey()`.
 - **BREAKING**: Changed `verifyFingerprint()` param signature to use named 
   params.
+- **BREAKING**: Changed `fromEdKeyPair()` param signature to use named params.
+- **BREAKING**: Changed `convertFromEdPublicKey()` param signature to use named 
+  params.
+- **BREAKING**: Changed `convertFromEdPrivateKey()` param signature to use named 
+  params.
 - See also [`crypto-ld` v4.0 Changelog](https://github.com/digitalbazaar/crypto-ld/blob/master/CHANGELOG.md#400---2020-08-01)
 
 ### Purpose and Upgrade Instructions
