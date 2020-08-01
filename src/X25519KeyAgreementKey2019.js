@@ -3,14 +3,14 @@
  */
 'use strict';
 
-import {util} from 'node-forge';
-const base58 = util.binary.base58;
-import {LDKeyPair} from 'crypto-ld';
-import {base58Decode} from 'crypto-ld/lib/util';
+import {LDVerifierKeyPair} from 'crypto-ld';
 import ed2curve from 'ed2curve';
 import nacl from 'tweetnacl';
+import {encode, decode} from 'base58-universal';
 
-export class X25519KeyAgreementKey2019 extends LDKeyPair {
+const SUITE_ID = 'X25519KeyAgreementKey2019';
+
+export class X25519KeyAgreementKey2019 extends LDVerifierKeyPair {
   /**
    * An implementation of x25519
    * [X25519 Key Agreement 2019]{@link https://w3c-dvcg.github.io/}
@@ -33,7 +33,7 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
    */
   constructor(options = {}) {
     super(options);
-    this.type = 'X25519KeyAgreementKey2019';
+    this.type = SUITE_ID;
     this.publicKeyBase58 = options.publicKeyBase58;
     if(!this.publicKeyBase58) {
       throw TypeError('The "publicKeyBase58" property is required.');
@@ -42,26 +42,6 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
     if(this.controller && !this.id) {
       this.id = `${this.controller}#${this.fingerprint()}`;
     }
-  }
-  /**
-   * Returns the Base58 encoded public key.
-   * @implements {LDKeyPair#publicKey}
-   * @readonly
-   *
-   * @returns {string} The Base58 encoded public key.
-   */
-  get publicKey() {
-    return this.publicKeyBase58;
-  }
-  /**
-   * Returns the Base58 encoded private key.
-   * @implements {LDKeyPair#privateKey}
-   * @readonly
-   *
-   * @returns {string} The Base58 encoded private key.
-   */
-  get privateKey() {
-    return this.privateKeyBase58;
   }
 
   /**
@@ -83,8 +63,8 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
     const {publicKey, secretKey: privateKey} = nacl.box.keyPair();
 
     return new X25519KeyAgreementKey2019({
-      publicKeyBase58: base58.encode(publicKey),
-      privateKeyBase58: base58.encode(privateKey),
+      publicKeyBase58: encode(publicKey),
+      privateKeyBase58: encode(privateKey),
       ...options
     });
   }
@@ -132,11 +112,7 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
    * @returns {string} base58 encoded X25519 Public key.
    */
   static convertFromEdPublicKey(edPublicKeyBase58) {
-    const edPubkeyBytes = base58Decode({
-      decode: base58.decode,
-      keyMaterial: edPublicKeyBase58,
-      type: 'public'
-    });
+    const edPubkeyBytes = decode(edPublicKeyBase58);
 
     // Converts a 32-byte Ed25519 public key into a 32-byte Curve25519 key
     // Returns null if the given public key in not a valid Ed25519 public key.
@@ -145,7 +121,7 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
       throw new Error(
         'Error converting to X25519; Invalid Ed25519 public key.');
     }
-    const dhPublicKeyBase58 = base58.encode(dhPubkeyBytes);
+    const dhPublicKeyBase58 = encode(dhPubkeyBytes);
     return dhPublicKeyBase58;
   }
 
@@ -155,11 +131,7 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
    * @returns {string} base58 encoded X25519 Private key.
    */
   static convertFromEdPrivateKey(edPrivateKeyBase58) {
-    const edPrivkeyBytes = base58Decode({
-      decode: base58.decode,
-      keyMaterial: edPrivateKeyBase58,
-      type: 'private'
-    });
+    const edPrivkeyBytes = decode(edPrivateKeyBase58);
     // Converts a 64-byte Ed25519 secret key (or just the first 32-byte part of
     // it, which is the secret value) into a 32-byte Curve25519 secret key
     const dhPrivkeyBytes = ed2curve.convertSecretKey(edPrivkeyBytes);
@@ -167,60 +139,35 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
       throw new Error(
         'Error converting to X25519; Invalid Ed25519 private key.');
     }
-    const dhPrivateKeyBase58 = base58.encode(dhPrivkeyBytes);
+    const dhPrivateKeyBase58 = encode(dhPrivkeyBytes);
     return dhPrivateKeyBase58;
   }
 
   /**
    * Adds a public key base to a public key node.
-   * Used by LDKeyPair.publicNode(), to serialize the public key material.
-   * @example
-   * > keyPair.publicNode();
-   * {
-   *   id: 'did:example:1234#z6LSbh9HiAU2zzBdFMdKZGHfg1UjvAYF8C8kYnkfGKuCxYEB',
-   *   type: 'X25519KeyAgreementKey2019',
-   *   controller: 'did:example:1234',
-   *   publicKeyBase58: '1y8BrfAuXTt9yFZ2cmiMRGG5218Raxbfp2ymsFgFATR'
-   * }
-   * @param {object} publicKeyNode - The public key node
-   * @param {string} publicKeyNode.publicKeyBase58 - Base58 Public Key
    *
-   * @returns {object} A PublicKeyNode in a block.
+   * @param {object} key - The public key object in a jsonld-signature.
+   * @param {string} key.publicKeyBase58 - Base58btc encoded Public Key.
+   *
+   * @see https://github.com/digitalbazaar/jsonld-signatures
+   *
+   * @returns {object} A PublicKeyNode, with key material.
    */
-  addEncodedPublicKey(publicKeyNode) {
-    publicKeyNode.publicKeyBase58 = this.publicKeyBase58;
-    return publicKeyNode;
+  addPublicKey({key}) {
+    key.publicKeyBase58 = this.publicKeyBase58;
+    return key;
   }
 
   /**
-   * Adds an encrypted private key to the KeyPair.
-   * Used by LDKeyPair.export(), to serialize public + private key pair.
+   * Adds the private key material to the KeyPair.
+   * @param {object} key - A plain object.
+   * @param {string} key.privateKeyBase58 - Base58btc encoded Private Key
    *
-   * Usage:
-   *
-   * ```
-   * await keyPair.export();
-   * // ->
-   * {
-   *   id: 'did:example:1234#z6LSjeJZaUHMvEKW7tEJXV4PrSm61NzxxHhDXF6zHnVtDu9g',
-   *   type: 'X25519KeyAgreementKey2019',
-   *   controller: 'did:example:1234',
-   *   publicKeyBase58: '8y8Q4AUVpmbm2VrXzqYSXrYcAETrFgX4eGPJoKrMWXNv',
-   *   privateKeyBase58: '95tmYuhqSuJqY77FEg78Zy3LFQ1cENxGv2wMvayk7Lqf'
-   * }
-   * ```
-   *
-   * @param {object} keyNode - A plain object.
-   *
-   * @return {object} The keyNode with an encrypted private key attached.
+   * @return {object} The keyNode with encoded private key material.
    */
-  async addEncryptedPrivateKey(keyNode) {
-    if(this.passphrase !== null) {
-      throw new Error('Encrypted export not yet implemented.');
-    }
-    // no passphrase, do not encrypt private key
-    keyNode.privateKeyBase58 = this.privateKeyBase58;
-    return keyNode;
+  addPrivateKey({key}) {
+    key.privateKeyBase58 = this.privateKeyBase58;
+    return key;
   }
 
   /**
@@ -235,11 +182,7 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
   static fingerprintFromPublicKey({publicKeyBase58}) {
     // X25519 cryptonyms are multicodec encoded values, specifically:
     // (multicodec('x25519-pub') + key bytes)
-    const pubkeyBytes = base58Decode({
-      decode: base58.decode,
-      keyMaterial: publicKeyBase58,
-      type: 'public'
-    });
+    const pubkeyBytes = decode(publicKeyBase58);
     const buffer = new Uint8Array(2 + pubkeyBytes.length);
     // See https://github.com/multiformats/multicodec/blob/master/table.csv
     // 0xec is the value for X25519 public key
@@ -249,7 +192,7 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
     buffer[1] = 0x01;
     buffer.set(pubkeyBytes, 2);
     // prefix with `z` to indicate multi-base base58btc encoding
-    return `z${base58.encode(buffer)}`;
+    return `z${encode(buffer)}`;
   }
 
   /**
@@ -259,9 +202,13 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
    * @returns {X25519KeyAgreementKey2019}
    * @throws Unsupported Fingerprint Type.
    */
-  static fromFingerprint({fingerprint}) {
+  static fromFingerprint({fingerprint} = {}) {
+    if(!fingerprint ||
+      !(typeof fingerprint === 'string' && fingerprint[0] === 'z')) {
+      throw new Error('`fingerprint` must be a multibase encoded string.');
+    }
     // skip leading `z` that indicates base58 encoding
-    const buffer = base58.decode(fingerprint.substr(1));
+    const buffer = decode(fingerprint.substr(1));
 
     // buffer is: 0xec 0x01 <public key bytes>
     if(buffer[0] !== 0xec || buffer[1] !== 0x01) {
@@ -269,7 +216,7 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
     }
 
     return new X25519KeyAgreementKey2019({
-      publicKeyBase58: base58.encode(buffer.slice(2))
+      publicKeyBase58: encode(buffer.slice(2))
     });
   }
 
@@ -283,17 +230,9 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
    * @returns {String}
    */
   deriveSecret({publicKey}) {
-    const remotePubkeyBytes = base58Decode({
-      decode: base58.decode,
-      keyMaterial: publicKey.publicKeyBase58,
-      type: 'public'
-    });
+    const remotePubkeyBytes = decode(publicKey.publicKeyBase58);
 
-    const privateKeyBytes = base58Decode({
-      decode: base58.decode,
-      keyMaterial: this.privateKeyBase58,
-      type: 'private'
-    });
+    const privateKeyBytes = decode(this.privateKeyBase58);
 
     return nacl.scalarMult(privateKeyBytes, remotePubkeyBytes);
   }
@@ -320,7 +259,7 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
    *
    * @returns {Object} An object indicating valid is true or false.
    */
-  verifyFingerprint(fingerprint) {
+  verifyFingerprint({fingerprint} = {}) {
     // fingerprint should have `z` prefix indicating
     // that it's multi-base encoded
     if(!(typeof fingerprint === 'string' && fingerprint[0] === 'z')) {
@@ -331,21 +270,13 @@ export class X25519KeyAgreementKey2019 extends LDKeyPair {
     }
     let fingerprintBuffer;
     try {
-      fingerprintBuffer = base58Decode({
-        decode: base58.decode,
-        keyMaterial: fingerprint.slice(1),
-        type: `fingerprint's`
-      });
+      fingerprintBuffer = decode(fingerprint.slice(1));
     } catch(e) {
       return {error: e, valid: false};
     }
     let publicKeyBuffer;
     try {
-      publicKeyBuffer = base58Decode({
-        decode: base58.decode,
-        keyMaterial: this.publicKeyBase58,
-        type: 'public'
-      });
+      publicKeyBuffer = decode(this.publicKeyBase58);
     } catch(e) {
       return {error: e, valid: false};
     }
