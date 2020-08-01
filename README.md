@@ -1,4 +1,4 @@
-# X25519KeyPair _(x25519-key-pair)_
+# X25519KeyPair _(x25519-key-agreement-key-2019)_
 
 > An X25519 (Curve25519) DH key implementation to work with the crypto-ld LDKeyPair API
 
@@ -31,13 +31,13 @@ See also (related specs):
 
 ## Install
 
-Requires Node.js 8.3+
+Requires Node.js 10+
 
 To install locally (for development):
 
 ```
-git clone https://github.com/digitalbazaar/x25519-key-pair.git
-cd x25519-key-pair
+git clone https://github.com/digitalbazaar/x25519-key-agreement-key-2019.git
+cd x25519-key-agreement-key-2019
 npm install
 ```
 
@@ -46,7 +46,7 @@ npm install
 Importing:
 
 ```
-const {X25519KeyPair} = require('x25519-key-pair');
+const {X25519KeyPair} = require('@digitalbazaar/x25519-key-agreement-key-2019');
 
 // Or, if you're testing code in the interactive Node CLI, right in this repo:
 const {X25519KeyPair} = require('./');
@@ -108,7 +108,7 @@ See [the contribute file](https://github.com/digitalbazaar/bedrock/blob/master/C
 
 PRs accepted.
 
-Small note: If editing the Readme, please conform to the
+If editing the Readme, please conform to the
 [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
 ## Commercial Support
