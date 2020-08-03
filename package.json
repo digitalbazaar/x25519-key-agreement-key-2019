@@ -11,7 +11,7 @@
     "coverage-report": "nyc report",
     "lint": "eslint ."
   },
-  "main": "lib/main.js",
+  "main": "lib/index.js",
   "files": [
     "lib/*.js"
   ],
@@ -49,7 +49,7 @@
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/runtime": "^7.11.0",
-    "@digitalbazaar/ed25519-verification-key-2018": "^1.0.0",
+    "@digitalbazaar/ed25519-verification-key-2018": "^1.0.2",
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "chai-bytes": "^0.1.2",
