@@ -11,9 +11,9 @@
     "coverage-report": "nyc report",
     "lint": "eslint ."
   },
-  "main": "src/main.js",
+  "main": "lib/main.js",
   "files": [
-    "src/*.js"
+    "lib/*.js"
   ],
   "repository": {
     "type": "git",
@@ -74,5 +74,5 @@
     "buffer": false,
     "crypto": false
   },
-  "module": "src/main.js"
+  "module": "lib/main.js"
 }
