@@ -31,7 +31,8 @@ describe('X25519KeyAgreementKey2019', () => {
       const {publicKeyBase58} = mockKey;
       const controller = 'did:example:1234';
 
-      const keyPair = new X25519KeyAgreementKey2019({controller, publicKeyBase58});
+      const keyPair = new X25519KeyAgreementKey2019(
+        {controller, publicKeyBase58});
       expect(keyPair.id).to.equal(
         'did:example:1234#z6LSjeJZaUHMvEKW7tEJXV4PrSm61NzxxHhDXF6zHnVtDu9g');
     });
@@ -80,7 +81,7 @@ describe('X25519KeyAgreementKey2019', () => {
         publicKeyBase58: '73e843su1epHouuHyDzjy2YXZfZrNiXLrr1hjpJkBeUG'
       });
 
-      const secret = localKey.deriveSecret({publicKey: remoteKey});
+      const secret = await localKey.deriveSecret({publicKey: remoteKey});
       const secretString = encode(secret);
 
       expect(secretString).to
