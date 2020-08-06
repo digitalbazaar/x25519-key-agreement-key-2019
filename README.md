@@ -31,7 +31,7 @@ See also (related specs):
 
 ## Install
 
-Requires Node.js 10+
+Requires Node.js 12+
 
 To install locally (for development):
 
@@ -99,6 +99,8 @@ const keyPair = await X25519KeyAgreementKey2019.from({
   publicKeyBase58: '8y8Q4AUVpmbm2VrXzqYSXrYcAETrFgX4eGPJoKrMWXNv'
 });
 ```
+
+Deriving 
 
 ## Contribute
 

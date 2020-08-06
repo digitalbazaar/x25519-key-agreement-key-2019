@@ -6,7 +6,7 @@
     "test": "npm run lint && npm run test-node && npm run test-karma",
     "test-node": "cross-env NODE_ENV=test mocha -r esm --preserve-symlinks -t 10000 tests/**/*.spec.js",
     "test-karma": "karma start tests/karma.conf.js",
-    "coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text-summary npm run test-node",
+    "coverage": "cross-env NODE_ENV=test nyc --require esm --reporter=html --reporter=text-summary npm run test-node",
     "coverage-ci": "cross-env NODE_ENV=test nyc --reporter=lcovonly npm run test-node",
     "coverage-report": "nyc report",
     "lint": "eslint ."
@@ -15,6 +15,9 @@
   "files": [
     "lib/*.js"
   ],
+  "esm": {
+    "cjs": true
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/digitalbazaar/x25519-key-agreement-key-2019.git"
@@ -73,6 +76,9 @@
   "browser": {
     "buffer": false,
     "crypto": false
+  },
+  "engines": {
+    "node": ">=12"
   },
   "module": "lib/main.js"
 }
