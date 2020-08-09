@@ -3,7 +3,7 @@
  */
 'use strict';
 
-const chai = require('chai');
+import chai from 'chai';
 chai.should();
 const {expect} = chai;
 
