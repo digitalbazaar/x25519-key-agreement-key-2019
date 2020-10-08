@@ -1,5 +1,11 @@
 # x25519-key-pair ChangeLog
 
+## 3.1.0 - 2020-10-08
+
+### Changes
+- Use node-forge@0.10.0.
+- Update dev dependencies.
+
 ## 3.0.0 - 2020-08-01
 
 ### Added
@@ -13,7 +19,7 @@
 
 ### Changed
 - **BREAKING**: Changed the key fingerprint prefix to the recently registered
-  `multicodec` value of `0xec`. 
+  `multicodec` value of `0xec`.
 
 ## 1.0.0 - 2020-02-25
 
