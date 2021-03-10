@@ -2,7 +2,7 @@ module.exports = function(config) {
   // bundler to test: webpack
   const bundler = process.env.BUNDLER || 'webpack';
   const frameworks = ['mocha'];
-  const files = ['unit/*.js'];
+  const files = ['test/*.js'];
   const reporters = ['mocha'];
   const browsers = ['ChromeHeadless'];
   const client = {
@@ -23,7 +23,7 @@ module.exports = function(config) {
     // available preprocessors:
     // https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'unit/*.js': preprocessors,
+      'test/*.js': preprocessors,
     },
     webpack: {
       devtool: 'inline-source-map',
