@@ -10,7 +10,7 @@ const {expect} = chai;
 import {
   Ed25519VerificationKey2018
 } from '@digitalbazaar/ed25519-verification-key-2018';
-import {X25519KeyAgreementKey2019} from '../../';
+import {X25519KeyAgreementKey2019} from '../lib/main';
 import {encode} from 'base58-universal';
 
 const mockKey = {
