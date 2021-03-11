@@ -102,8 +102,6 @@ const keyPair = await X25519KeyAgreementKey2019.from({
 });
 ```
 
-Deriving 
-
 ## Contribute
 
 See [the contribute file](https://github.com/digitalbazaar/bedrock/blob/master/CONTRIBUTING.md)!
