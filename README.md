@@ -1,6 +1,6 @@
-# X25519KeyAgreementKey2019 _(x25519-key-agreement-key-2019)_
+# X25519KeyAgreementKey2019 _(@digitalbazaar/x25519-key-agreement-key-2019)_
 
-> An X25519 (Curve25519) DH key implementation to work with the crypto-ld LDKeyPair API
+> An X25519 (Curve25519) DH (Diffie-Hellman) key implementation to work with the crypto-ld LDKeyPair API.
 
 ## Table of Contents
 
@@ -18,11 +18,13 @@ TBD
 
 ## Background
 
-This is a low-level level library to generate and serialize X25519 (Curve25519)
-key pairs (uses `nacl.box` under the hood).
+For use with [`crypto-ld`](https://github.com/digitalbazaar/crypto-ld) `>= 4.0`.
 
 To actually perform encryption with those keys, we recommend you use
-the https://github.com/digitalbazaar/minimal-cipher library.
+the [`minimal-cipher`](https://github.com/digitalbazaar/minimal-cipher) library.
+
+This is a low-level level library to generate and serialize X25519 (Curve25519)
+key pairs (uses `nacl.box` under the hood).
 
 See also (related specs):
 
