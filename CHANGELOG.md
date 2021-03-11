@@ -1,6 +1,6 @@
-# x25519-key-agreement-key-2019 ChangeLog
+# @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
-## 4.0.0 - TBD
+## 4.0.0 - 2021-03-11
 
 ### Changed
 - **BREAKING**: Rename repo and NPM package name to 
