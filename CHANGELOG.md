@@ -1,6 +1,6 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
-## 4.1.0 - 
+## 4.1.0 - 2021-03-14
 
 ### Added
 - `fromEdKeyPair()` is now an alias for `fromEd25519VerificationKey2018()` to
