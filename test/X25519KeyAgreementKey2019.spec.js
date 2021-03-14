@@ -89,6 +89,32 @@ describe('X25519KeyAgreementKey2019', () => {
     });
   });
 
+  describe(`export`, () => {
+    it('should export only the public key', async () => {
+      const key = await X25519KeyAgreementKey2019.generate();
+
+      const result = key.export({publicKey: true});
+      expect(result.publicKeyBase58).to.exist;
+      expect(result.privateKeyBase58).to.not.exist;
+    });
+
+    it('should export only the private key', async () => {
+      const key = await X25519KeyAgreementKey2019.generate();
+
+      const result = key.export({privateKey: true});
+      expect(result.publicKeyBase58).to.not.exist;
+      expect(result.privateKeyBase58).to.exist;
+    });
+
+    it('should export both public and private key', async () => {
+      const key = await X25519KeyAgreementKey2019.generate();
+
+      const result = key.export({publicKey: true, privateKey: true});
+      expect(result.publicKeyBase58).to.exist;
+      expect(result.privateKeyBase58).to.exist;
+    });
+  });
+
   describe('fingerprint', () => {
     it('should round trip convert to and from public key', async () => {
       const key = await X25519KeyAgreementKey2019.generate();
