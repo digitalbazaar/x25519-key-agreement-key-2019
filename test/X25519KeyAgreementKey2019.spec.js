@@ -10,6 +10,9 @@ const {expect} = chai;
 import {
   Ed25519VerificationKey2018
 } from '@digitalbazaar/ed25519-verification-key-2018';
+import {
+  Ed25519VerificationKey2020
+} from '@digitalbazaar/ed25519-verification-key-2020';
 import {X25519KeyAgreementKey2019} from '../lib/main';
 import {encode} from 'base58-universal';
 
@@ -49,8 +52,8 @@ describe('X25519KeyAgreementKey2019', () => {
     });
   });
 
-  describe('fromEdKeyPair', () => {
-    it('should convert both public and private key', async () => {
+  describe('fromEd25519VerificationKey2018', () => {
+    it('should convert both public and private key (2018)', async () => {
       const edKeyPair = await Ed25519VerificationKey2018.from({
         controller: 'did:example:123',
         /* eslint-disable-next-line max-len */
@@ -59,7 +62,7 @@ describe('X25519KeyAgreementKey2019', () => {
       });
 
       const xKeyPair = X25519KeyAgreementKey2019
-        .fromEdKeyPair({keyPair: edKeyPair});
+        .fromEd25519VerificationKey2018({keyPair: edKeyPair});
 
       expect(xKeyPair.type).to.equal('X25519KeyAgreementKey2019');
       expect(xKeyPair.controller).to.equal('did:example:123');
@@ -67,6 +70,37 @@ describe('X25519KeyAgreementKey2019', () => {
         .equal('9K6xjwBdjKC4W3r41ZP5WUxp8XXm8gT9GvR1G5Eocs1Z');
       expect(xKeyPair.privateKeyBase58).to
         .equal('H9ruaVs9LnRUwxNMLTjDkEbWW1P3bcBuiu7GxoBbEpdV');
+
+      // Check to make sure export works after conversion
+      const exported = xKeyPair.export({publicKey: true});
+      expect(exported.publicKeyBase58).to.exist;
+      expect(exported.privateKeyBase58).to.not.exist;
+    });
+  });
+
+  describe('fromEd25519VerificationKey2020', () => {
+    it('should convert both public and private key (2020)', async () => {
+      const edKeyPair = await Ed25519VerificationKey2020.from({
+        controller: 'did:example:123',
+        /* eslint-disable-next-line max-len */
+        privateKeyMultibase: 'z4F71TAGqQYe7KE9p4HUzoVV9arQwKP4gPtvi89EPNGuwA1qLE4RRxitA2rEcdEszERj3pN1DWKARBZQ2BACLbW1V',
+        publicKeyMultibase: 'zHLi1h9SzENZyEv7ifPNtu8xyJNzCFFeaC6X9rsZKFgv3'
+      });
+
+      const xKeyPair = X25519KeyAgreementKey2019
+        .fromEd25519VerificationKey2020({keyPair: edKeyPair});
+
+      expect(xKeyPair.type).to.equal('X25519KeyAgreementKey2019');
+      expect(xKeyPair.controller).to.equal('did:example:123');
+      expect(xKeyPair.publicKeyBase58).to
+        .equal('9K6xjwBdjKC4W3r41ZP5WUxp8XXm8gT9GvR1G5Eocs1Z');
+      expect(xKeyPair.privateKeyBase58).to
+        .equal('H9ruaVs9LnRUwxNMLTjDkEbWW1P3bcBuiu7GxoBbEpdV');
+
+      // Check to make sure export works after conversion
+      const exported = xKeyPair.export({publicKey: true});
+      expect(exported.publicKeyBase58).to.exist;
+      expect(exported.privateKeyBase58).to.not.exist;
     });
   });
 
