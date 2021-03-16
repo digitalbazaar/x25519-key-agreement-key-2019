@@ -73,8 +73,8 @@ describe('X25519KeyAgreementKey2019', () => {
 
       // Check to make sure export works after conversion
       const exported = xKeyPair.export({publicKey: true});
-      expect(exported.publicKeyBase58).to.exist;
-      expect(exported.privateKeyBase58).to.not.exist;
+      expect(exported).to.have.any.keys(['publicKeyBase58']);
+      expect(exported).to.not.have.keys(['privateKeyBase58']);
     });
   });
 
@@ -99,8 +99,9 @@ describe('X25519KeyAgreementKey2019', () => {
 
       // Check to make sure export works after conversion
       const exported = xKeyPair.export({publicKey: true});
-      expect(exported.publicKeyBase58).to.exist;
-      expect(exported.privateKeyBase58).to.not.exist;
+
+      expect(exported).to.have.any.keys(['publicKeyBase58']);
+      expect(exported).to.not.have.keys(['privateKeyBase58']);
     });
   });
 
@@ -125,27 +126,30 @@ describe('X25519KeyAgreementKey2019', () => {
 
   describe(`export`, () => {
     it('should export only the public key', async () => {
-      const key = await X25519KeyAgreementKey2019.generate();
+      const key = await X25519KeyAgreementKey2019.generate({
+        controller: 'did:ex:1234'
+      });
 
-      const result = key.export({publicKey: true});
-      expect(result.publicKeyBase58).to.exist;
-      expect(result.privateKeyBase58).to.not.exist;
+      const exported = key.export({publicKey: true});
+      expect(exported).to.have.any.keys(['publicKeyBase58']);
+      expect(exported).to.not.have.keys(['privateKeyBase58']);
     });
 
     it('should export only the private key', async () => {
       const key = await X25519KeyAgreementKey2019.generate();
 
-      const result = key.export({privateKey: true});
-      expect(result.publicKeyBase58).to.not.exist;
-      expect(result.privateKeyBase58).to.exist;
+      const exported = key.export({privateKey: true});
+      expect(exported).to.not.have.keys(['publicKeyBase58']);
+      expect(exported).to.have.any.keys(['privateKeyBase58']);
     });
 
     it('should export both public and private key', async () => {
       const key = await X25519KeyAgreementKey2019.generate();
 
-      const result = key.export({publicKey: true, privateKey: true});
-      expect(result.publicKeyBase58).to.exist;
-      expect(result.privateKeyBase58).to.exist;
+      const exported = key.export({publicKey: true, privateKey: true});
+      expect(exported).to.have.keys([
+        'id', 'controller', 'type', 'publicKeyBase58', 'privateKeyBase58'
+      ]);
     });
   });
 
