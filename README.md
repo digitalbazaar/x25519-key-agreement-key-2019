@@ -18,7 +18,7 @@ TBD
 
 ## Background
 
-For use with [`crypto-ld`](https://github.com/digitalbazaar/crypto-ld) `>= 4.0`.
+For use with [`crypto-ld`](https://github.com/digitalbazaar/crypto-ld) `>= 5.0`.
 
 To actually perform encryption with those keys, we recommend you use
 the [`minimal-cipher`](https://github.com/digitalbazaar/minimal-cipher) library.
