@@ -41,7 +41,7 @@
   "homepage": "https://github.com/digitalbazaar/x25519-key-agreement-key-2019#readme",
   "dependencies": {
     "base58-universal": "^1.0.0",
-    "crypto-ld": "^4.0.1",
+    "crypto-ld": "^5.0.0",
     "ed2curve": "^0.3.0",
     "esm": "^3.2.25",
     "tweetnacl": "^1.0.3"
@@ -52,8 +52,8 @@
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/runtime": "^7.11.0",
-    "@digitalbazaar/ed25519-verification-key-2018": "^2.0.0",
-    "@digitalbazaar/ed25519-verification-key-2020": "^1.0.0",
+    "@digitalbazaar/ed25519-verification-key-2018": "^3.0.0",
+    "@digitalbazaar/ed25519-verification-key-2020": "^2.0.0",
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "chai-bytes": "^0.1.2",

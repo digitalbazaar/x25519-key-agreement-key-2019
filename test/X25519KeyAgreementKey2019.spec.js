@@ -1,8 +1,6 @@
 /*!
- * Copyright (c) 2019 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2019-2021 Digital Bazaar, Inc. All rights reserved.
  */
-'use strict';
-
 import chai from 'chai';
 chai.should();
 const {expect} = chai;

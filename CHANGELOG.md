@@ -1,5 +1,11 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
+## 5.0.0 -
+
+## Changed
+- Update to use `crypto-ld v5.0`.
+- **BREAKING**: Removed helper methods `addPublicKey` and `addPrivateKey`.
+
 ## 4.1.0 - 2021-03-14
 
 ### Added
