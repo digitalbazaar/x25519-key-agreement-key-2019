@@ -1,6 +1,6 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
-## 5.0.0 -
+## 5.0.0 - 2021-03-17
 
 ## Changed
 - Update to use `crypto-ld v5.0`.
