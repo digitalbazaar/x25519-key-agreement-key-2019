@@ -1,5 +1,11 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
+## 5.0.1 - 2021-03-25
+
+## Changed
+- Remove `env.js`, switch to our usual node/browser setup. Should fix webpack
+  problems downstream.
+
 ## 5.0.0 - 2021-03-17
 
 ## Changed
