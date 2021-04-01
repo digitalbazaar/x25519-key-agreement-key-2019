@@ -21,7 +21,7 @@ const mockKey = {
 
 describe('X25519KeyAgreementKey2019', () => {
   describe('class vars', () => {
-    it('should expose suite id for crypto-ld usage', async () => {
+    it('should expose suite and context for crypto-ld usage', async () => {
       expect(X25519KeyAgreementKey2019.suite)
         .to.equal('X25519KeyAgreementKey2019');
     });
@@ -142,12 +142,17 @@ describe('X25519KeyAgreementKey2019', () => {
     });
 
     it('should export both public and private key', async () => {
-      const key = await X25519KeyAgreementKey2019.generate();
+      const key = await X25519KeyAgreementKey2019.generate({
+        controller: 'did:example:1234'
+      });
+      key.revoked = '2019-10-12T07:20:50.52Z';
 
       const exported = key.export({publicKey: true, privateKey: true});
-      expect(exported).to.have.keys([
-        'id', 'controller', 'type', 'publicKeyBase58', 'privateKeyBase58'
-      ]);
+      expect(exported).to.have.keys(['id', 'type', 'controller',
+        'publicKeyBase58', 'privateKeyBase58', 'revoked']);
+      expect(exported.controller).to.equal('did:example:1234');
+      expect(exported.type).to.equal('X25519KeyAgreementKey2019');
+      expect(exported).to.have.property('revoked', '2019-10-12T07:20:50.52Z');
     });
   });
 
