@@ -1,10 +1,10 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
-## 5.1.0 -
+## 5.1.0 - 2021-04-02
 
 ### Added
-- Add `revoked` export tests. (To support
-  `CryptoLD`'s new `fromKeyId()` method.)
+- Add `revoked` export tests. (To support `CryptoLD`'s new `fromKeyId()` 
+  method.) Also add `includeContext` flag to `export()`.
 
 ## 5.0.1 - 2021-03-25
 
