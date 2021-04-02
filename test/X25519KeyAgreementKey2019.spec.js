@@ -11,7 +11,7 @@ import {
 import {
   Ed25519VerificationKey2020
 } from '@digitalbazaar/ed25519-verification-key-2020';
-import {X25519KeyAgreementKey2019} from '../lib/main';
+import {X25519KeyAgreementKey2019} from '../';
 import {encode} from 'base58-universal';
 
 const mockKey = {
@@ -24,6 +24,8 @@ describe('X25519KeyAgreementKey2019', () => {
     it('should expose suite and context for crypto-ld usage', async () => {
       expect(X25519KeyAgreementKey2019.suite)
         .to.equal('X25519KeyAgreementKey2019');
+      expect(X25519KeyAgreementKey2019.SUITE_CONTEXT)
+        .to.equal('https://w3id.org/security/v2');
     });
   });
 
