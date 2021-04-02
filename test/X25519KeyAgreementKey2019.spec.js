@@ -145,14 +145,16 @@ describe('X25519KeyAgreementKey2019', () => {
       const key = await X25519KeyAgreementKey2019.generate({
         controller: 'did:example:1234'
       });
-      key.revoked = '2019-10-12T07:20:50.52Z';
+      const pastDate = new Date(2020, 11, 17).toISOString()
+        .replace(/\.[0-9]{3}/, '');
+      key.revoked = pastDate;
 
       const exported = key.export({publicKey: true, privateKey: true});
       expect(exported).to.have.keys(['id', 'type', 'controller',
         'publicKeyBase58', 'privateKeyBase58', 'revoked']);
       expect(exported.controller).to.equal('did:example:1234');
       expect(exported.type).to.equal('X25519KeyAgreementKey2019');
-      expect(exported).to.have.property('revoked', '2019-10-12T07:20:50.52Z');
+      expect(exported).to.have.property('revoked', pastDate);
     });
   });
 
