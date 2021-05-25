@@ -1,5 +1,10 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
+## 5.1.1 - 2021-05-25
+
+### Changed
+- **BREAKING**: Point suite context to its own standalone url (not security/v2).
+
 ## 5.1.0 - 2021-04-02
 
 ### Added
