@@ -25,7 +25,7 @@ describe('X25519KeyAgreementKey2019', () => {
       expect(X25519KeyAgreementKey2019.suite)
         .to.equal('X25519KeyAgreementKey2019');
       expect(X25519KeyAgreementKey2019.SUITE_CONTEXT)
-        .to.equal('https://w3id.org/security/v2');
+        .to.equal('https://w3id.org/security/suites/x25519-2019/v1');
     });
   });
 
