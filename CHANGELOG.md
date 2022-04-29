@@ -1,5 +1,13 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
+## 6.0.0 - 2022-xx-xx
+
+### Changed
+- **BREAKING**: Convert to module (ESM).
+- **BREAKING**: Require Node.js >=14.
+- Update dependencies.
+- Lint module.
+
 ## 5.2.0 - 2022-05-06
 
 ### Changed
