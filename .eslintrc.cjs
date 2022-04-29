@@ -4,6 +4,8 @@ module.exports = {
     browser: true
   },
   extends: [
-    'digitalbazaar'
+    'digitalbazaar',
+    'digitalbazaar/jsdoc',
+    'digitalbazaar/module'
   ]
 };
