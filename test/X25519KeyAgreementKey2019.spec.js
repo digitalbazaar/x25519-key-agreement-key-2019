@@ -83,8 +83,8 @@ describe('X25519KeyAgreementKey2019', () => {
       const edKeyPair = await Ed25519VerificationKey2020.from({
         controller: 'did:example:123',
         /* eslint-disable-next-line max-len */
-        privateKeyMultibase: 'z4F71TAGqQYe7KE9p4HUzoVV9arQwKP4gPtvi89EPNGuwA1qLE4RRxitA2rEcdEszERj3pN1DWKARBZQ2BACLbW1V',
-        publicKeyMultibase: 'zHLi1h9SzENZyEv7ifPNtu8xyJNzCFFeaC6X9rsZKFgv3'
+        privateKeyMultibase: 'zrv3t12G3RczbuREj5Hew2ybTv8oYE3DK3CzFTyJzarQWUoejYZbrrDvJWQXn47Tcw5DsmgcPMD6KwFzuQDcXuBbYcP',
+        publicKeyMultibase: 'z6Mkvny4HPhRZv4SMQxRLxLjkEWy7xG3f8tvt7S5h9XLAuhR'
       });
 
       const xKeyPair = X25519KeyAgreementKey2019

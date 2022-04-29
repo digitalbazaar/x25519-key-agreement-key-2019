@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@digitalbazaar/ed25519-verification-key-2018": "^3.0.0",
-    "@digitalbazaar/ed25519-verification-key-2020": "^2.0.0",
+    "@digitalbazaar/ed25519-verification-key-2020": "^3.2.0",
     "chai": "^4.3.4",
     "chai-bytes": "^0.1.2",
     "cross-env": "^7.0.3",
