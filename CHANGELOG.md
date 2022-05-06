@@ -5,6 +5,9 @@
 ### Changed
 - Use `@noble/ed25519` to convert public ed25519 keys to x25519.
 
+### Fixed
+- Fix broken ed25519 2020 conversion code.
+
 ## 5.1.1 - 2021-05-25
 
 ### Changed
