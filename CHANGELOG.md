@@ -1,6 +1,6 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
-## 5.2.0 - 2022-05-xx
+## 5.2.0 - 2022-05-06
 
 ### Changed
 - Use `@noble/ed25519` to convert public ed25519 keys to x25519.
