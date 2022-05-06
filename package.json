@@ -40,6 +40,7 @@
   },
   "homepage": "https://github.com/digitalbazaar/x25519-key-agreement-key-2019#readme",
   "dependencies": {
+    "@noble/ed25519": "^1.6.0",
     "base58-universal": "^1.0.0",
     "crypto-ld": "^5.0.0",
     "ed2curve": "^0.3.0",

@@ -1,5 +1,10 @@
 # @digitalbazaar/x25519-key-agreement-key-2019 ChangeLog
 
+## 5.2.0 - 2022-05-xx
+
+### Changed
+- Use `@noble/ed25519` to convert public ed25519 keys to x25519.
+
 ## 5.1.1 - 2021-05-25
 
 ### Changed
@@ -8,7 +13,7 @@
 ## 5.1.0 - 2021-04-02
 
 ### Added
-- Add `revoked` export tests. (To support `CryptoLD`'s new `fromKeyId()` 
+- Add `revoked` export tests. (To support `CryptoLD`'s new `fromKeyId()`
   method.) Also add `includeContext` flag to `export()`.
 
 ## 5.0.1 - 2021-03-25
@@ -27,22 +32,22 @@
 
 ### Added
 - `fromEdKeyPair()` is now an alias for `fromEd25519VerificationKey2018()` to
-  maintain backwards compatibility. New code should use 
+  maintain backwards compatibility. New code should use
   `fromEd25519VerificationKey2020()` (or whatever the latest Ed25519 suite is).
 
 ## 4.0.0 - 2021-03-11
 
 ### Changed
-- **BREAKING**: Rename repo and NPM package name to 
+- **BREAKING**: Rename repo and NPM package name to
   `@digitalbazaar/x25519-key-agreement-key-2019`.
 - **BREAKING**: Rename `addEncodedPublicKey()` to `addPublicKey()`.
 - **BREAKING**: Rename `addEncryptedPrivateKey()` to `addPrivateKey()`.
-- **BREAKING**: Changed `verifyFingerprint()` param signature to use named 
+- **BREAKING**: Changed `verifyFingerprint()` param signature to use named
   params.
 - **BREAKING**: Changed `fromEdKeyPair()` param signature to use named params.
-- **BREAKING**: Changed `convertFromEdPublicKey()` param signature to use named 
+- **BREAKING**: Changed `convertFromEdPublicKey()` param signature to use named
   params.
-- **BREAKING**: Changed `convertFromEdPrivateKey()` param signature to use named 
+- **BREAKING**: Changed `convertFromEdPrivateKey()` param signature to use named
   params.
 - See also [`crypto-ld` v4.0 Changelog](https://github.com/digitalbazaar/crypto-ld/blob/master/CHANGELOG.md#400---2020-08-01)
 
